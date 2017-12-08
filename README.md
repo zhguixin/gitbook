@@ -1,10 +1,8 @@
-# gitbook
+# 在GitHub上写博客
 
-分析各种源码，包括但不限于：
+整理记录了学习工作中的问题和知识，主要包括：
 
-- java集合框架源码
-- java常用类的源码
-- Android基本控件源码
-- Android常用开源框架源码
-- Android系统源码
+- [java](https://github.com/zhguixin/gitbook/tree/master/Java)
+- [Android](https://github.com/zhguixin/gitbook/tree/master/Android)
+
 
