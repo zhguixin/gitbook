@@ -2,7 +2,9 @@
 
 整理记录了学习工作中的问题和知识，主要包括：
 
-- [java](https://github.com/zhguixin/gitbook/tree/master/Java)
-- [Android](https://github.com/zhguixin/gitbook/tree/master/Android)
+- Java语言
+- Python语言
+- Android开发
+- 数据结构与算法
 
 
