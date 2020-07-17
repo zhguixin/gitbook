@@ -22,10 +22,15 @@ python中那些有意思的第三库
 
 
 
-
 #### 机器学习
 
 - NLTK(Natural Language Toolkit)，自然语言处理工具库，可以用来分析实现垃圾短信智能识别。
 
   [官网地址](http://www.nltk.org/) 有详细教程。
 
+
+>  通过pip命令进行相关库安装时，如果提示超时，使用命令：
+>
+>  ```bash
+>  pip install --default-timeout=1000 --no-cache-dir numpy
+>  ```

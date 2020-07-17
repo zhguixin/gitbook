@@ -7,7 +7,7 @@
 * 线程生命周期
 * 线程同步
 
-###线程的创建 
+### 线程的创建 
 
 Java中提供了`Thread` 类，我们通过`Thread`类来开启一个线程。
 
@@ -72,7 +72,7 @@ private native void start0();
 
 Java并不创建和管理线程，而是交给了操作系统去管理。在Android系统中，因为使用的Linux内核，所以线程的创建实现依赖于Linux的`pthread`：其中**/android/art/runtime/native/java_lang_Thread.cc**
 
-![thread_create](F:\gitbook\线程并发\imgs\thread_create.JPG)
+![thread_create](.\imgs\thread_create.JPG)
 
 
 

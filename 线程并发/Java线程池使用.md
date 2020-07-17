@@ -109,7 +109,7 @@ Future：泛型接口，代表依次异步执行的结果值，调用其get方�
 - `submit`有返回值，而`execute`没有
 - `submit`方便Exception处理
 
-####3、线程的执行控制
+#### 3、线程的执行控制
 
 开发过程中会有对线程，延期执行或重复执行的需求。这个时候Java Concurrency包中的ScheduledExecutorService就派上了用场。
 

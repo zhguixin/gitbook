@@ -85,3 +85,26 @@ ThreadLocalMap由Entry数组构成的，Entry构造函数传入key和value。key
 
 得到Entry之后，就可以得到存储在Entry中本地变量值value。
 
+### 说明
+
+Android中每一个线程都会有一个Looper，就是通过ThreadLocal实现的
+
+```java
+ThreadLocal<Looper> sThreadLocal = new ThreadLocal<Looper>();
+
+// 不同的线程调用此方法，都会存储一个只属于该线程的Looper(当然只能调用一次，否则会抛出异常)
+private static void prepare(boolean quitAllowed) {
+    if (sThreadLocal.get() != null) {
+        throw new RuntimeException("Only one Looper may be created per thread");
+    }
+    sThreadLocal.set(new Looper(quitAllowed));
+}
+```
+
+ThreadLocal的基本操作是`set()`和`get()`方法，
+
+- set操作是根据当前线程thread，拿到该线程持有的ThreadLocalMap（每一个线程有一个ThreadLocalMap的引用），把我们定义的ThreadLocal当作key，`set`过来的值当value存入到ThreadLocalMap
+- get操作，就是根据定义的ThreadLocal当作key，在ThreadLocalMap取到value
+
+> ThreadLocal会引起内存泄漏，主要是因为如果我们定义的ThreadLocal被回收了（也就是ThreadLocalMap中的key被回收了），那么ThreadLocalMap中的value没有回收时机，就会导致内存泄漏。避免这个问题要在**使用完ThreadLocal后，执行remove操作**
+

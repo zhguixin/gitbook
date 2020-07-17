@@ -34,7 +34,7 @@ adb shell getprop dalvik.vm.heapsize // 512m
 adb shell dumpsys meminfo com.zgx.testapp
 ```
 
-![](F:\gitbook\性能优化\imgs\meminfo.JPG)
+![](.\imgs\meminfo.JPG)
 
 可以看到Java堆、Native堆、Graphics层的内存占用情况；还可以查看对象数目，View、Activity、Context等的数目。
 

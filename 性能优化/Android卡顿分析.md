@@ -6,7 +6,19 @@
 
 借助于**systrace view**详细分析掉帧结果。
 
+Systrace的基本原理是在系统的一些关键链路（比如System Service，虚拟机，Binder驱动）插入一些信息（称之为Label），通过Label的开始和结束来确定某个核心过程的执行时间，然后把这些Label信息收集起来得到系统关键路径的运行时间信息，进而得到整个系统的运行性能信息。Android Framework里面一些重要的模块都插入了Label信息（Java层的通过android.os.Trace类完成，native层通过ATrace宏完成），用户App中可以添加自定义的Label，这样就组成了一个完成的性能分析系统。
+
+```java
+Trace.beginSection("begin");
+// 内部代码
+Trace.endSection();
+```
+
+> Systrace对系统版本有一个要求，就是需要Android 4.1以上，最好是Android 4.3以上。
+
 借助于**trace view**详细分析线程和函数的执行时间。
+
+TraceView试图收集某个阶段所有函数的运行信息，比较影响性能，Google后续全力支持Systrace。
 
 #### Hierarchy View的使用
 
@@ -18,11 +30,11 @@ systrace的功能包括跟踪系统的I/O操作、内核工作队列、CPU负载
 
 借助于Android Device Monitor工具，点击红圈内的图标可以打开systrace工具
 
-![monitor](F:\gitbook\性能优化\imgs\monitor.JPG)
+![monitor](.\imgs\monitor.JPG)
 
 配置好后，输出的`trace.html`文件用Chrome浏览器打开。
 
-![systrace](F:\gitbook\性能优化\imgs\systrace.JPG)
+![systrace](.\imgs\systrace.JPG)
 
 在**Frames**那一行，直观的显示了每一帧的渲染，红色代表有卡顿，发生丢帧，渲染时长已经超过了16ms。
 
@@ -48,11 +60,11 @@ Debug.stopMethodTracing();
 
 另外一个就是在Android SDK的tools目录下的monitor工具中，选中待调试进程，点击：【start Method Profiling】按钮，操作后，再点击一次即可结束。
 
-![](F:\gitbook\性能优化\imgs\monitor_trace.JPG)
+![](.\imgs\monitor_trace.JPG)
 
 通过TraceView，我们可以找到频繁调用的方法，也可以找到耗时方法，来分析解决潜在的卡顿问题。
 
-![](F:\gitbook\性能优化\imgs\traceview.jpg)
+![](.\imgs\traceview.jpg)
 
 在打开的TraceView视图中，分为上下两部分：
 
