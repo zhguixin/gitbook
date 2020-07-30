@@ -10,7 +10,7 @@ ListView本质是一个自定义ViewGroup，支持垂直信息的展示，继承
 
 在Android Studio使用快捷键F4查看。
 
-![](F:\gitbook\images\listview.JPG)
+![](..\images\listview.JPG)
 
 
 

@@ -73,7 +73,21 @@ recyclerView.setAdapter(itemFooterWrapper);
 
 #####RecyclerView的View的复用机制原理解析
 
-RecyclerView有多级缓存
+RecyclerView有多级缓存，常说的4级缓存:
+
+- ArrayList<ViewHolder> mAttachedScrap：缓存屏幕上可见的ViewHolder，不需要创建视图和重新绑定数据
+
+- ArrayList<ViewHolder> mCachedViews：缓存即将离开屏幕的ViewHolder，不需要创建视图和重新绑定数据
+
+- ViewCacheExtension mViewCacheExtension：用户自定义缓存，默认为空实现
+
+- RecycledViewPool mRecyclerPool：ViewHolder的缓存池，每个不同的type会缓存5个，需要重新绑定数据
+
+- RecyclerView重新布局，调用对应的LayoutManager的`onLayoutChildren`
+
+https://blog.csdn.net/singwhatiwanna/article/details/100166495
+
+https://www.jianshu.com/p/e1b257484961
 
 参考[基于滑动场景解析RecyclerView的回收复用机制原理](http://www.jianshu.com/p/9306b365da57)
 

@@ -6,7 +6,7 @@
 
 JDK1.4之前，线程的创建还是依靠Thread、Runnable和Callable（新加入）对象的实例化；Concurrency包出现之后，线程的执行则靠Executor、ExecutorService的对象执行execute()方法或submit()方法；线程的调度则被固化为几个具体的线程池类，如ThreadPoolExecutor、ScheduledThreadPoolExecutor、ExecutorCompletionService等等。这样表面上增加了复杂度，而实际上成功将线程的**创建、执行和调度**的业务逻辑分离，使程序员能够将精力集中在线程中业务逻辑的编写，大大提高了编码效率，降低了出错的概率，而且大大提高了性能。
 
-![Java并发包](./images/concurrency_framework.png)
+![Java并发包](../images/concurrency_framework.png)
 
 #### 1、线程的执行者
 
