@@ -1,3 +1,5 @@
+
+
 ### 前言
 
 Binder是Android中实现跨进程通信的一种机制，众所周知，Android基于Linux内核，而Linux提供了许多的跨进程通信机制：管道、socket、共享内存等。为什么Android要选用Binder呢。这个问题可以参考这个链接：
