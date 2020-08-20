@@ -87,3 +87,67 @@ target_link_libraries( # Specifies the target library.
 
 > 编译得到的so库位置：`build\intermediates\cmake\release\obj\arm64-v8a\`
 
+JNI注册时机：
+
+- 在Zygote进程，启动完虚拟机后，调用`startReg(AndroidRuntime.cpp)`进行注册
+
+- 调用System.loadLibrary()直接加载so库
+
+  > System.loadLibrary("android_jni");
+  >
+  > 会从指定lib目录下查找，并加上lib前缀和.so后缀
+
+JNI静态注册过程，在通过javah命令生成对应类全限定名的`*.h`文件，应用侧开发使用比较多；
+
+JNI动态注册过程，在so库被加载后，会回调`JNI_onLoad()`方法，可以在这个回调方法里对JNI方法进行动态注册。
+
+动态注册过程就是将Java方法与C/C++方法关联的过程，JNINativeMethod记录了这个关联过程
+
+```java
+typedef struct {
+    const char* name;//Java方法的名字
+    const char* signature;//Java方法的签名信息
+    void*       fnPtr;//JNI中对应的方法指针
+} JNINativeMethod;
+```
+
+> Java方法的签名信息，比如有个Java方法：`String getStr(int index，long[] arr)`
+>
+> 签名信息为：`(I[J)Ljava/lang/String`
+>
+> 参数在前用括号包裹返回值在后，Java引用类型表示为**L+包名**，**[**：表示数组
+
+构造一个JNINativeMethod数组：
+
+```java
+static const JNINativeMethod gMethods[] = {
+	...
+ 	{"start",            "()V",      (void *)android_media_MediaRecorder_start},//1
+	...
+};
+```
+
+在JNI_onLoad方法中实现
+
+```cpp
+//回调函数
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved){
+  JNIEnv* env = NULL;
+  //获取JNIEnv
+  if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_6) != JNI_OK) {
+    return -1;
+  }
+  assert(env != NULL);
+  //注册函数 registerNatives ->registerNativeMethods ->env->RegisterNatives
+  if(!registerNatives(env)){
+    return -1;
+  }
+  //返回jni 的版本 
+  return JNI_VERSION_1_6;
+}
+```
+
+参考：JNI的两种注册过程https://www.jianshu.com/p/1d6ec5068d05
+
+
+

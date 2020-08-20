@@ -1,4 +1,4 @@
-Gradle组件打包
+通过编写gradle脚本，动态打包subAPK到MainApp的assets目录下
 
 新建一个工程**MainApp**作为主工程，新建好之后，再次新建一个**Module**，起名为：**subapp**。此时的工程目录结构为：
 
